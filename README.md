@@ -1,6 +1,6 @@
 ## iQey React Native Mobile Apps
 
-** How to get up and running
+#### How to get up and running
 
 1. Clone the repo
 2. Cd in to iqey-mobile
