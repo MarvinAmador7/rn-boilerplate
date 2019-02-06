@@ -1,56 +1,43 @@
 const type = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic'
+  base: 'NunitoSans-Regular',
+  bold: 'NunitoSans-Bold',
+  light: 'NunitoSans-Light',
 };
 
 const size = {
-  h1: 38,
-  h2: 34,
-  h3: 30,
-  h4: 26,
-  h5: 20,
-  h6: 19,
-  input: 18,
-  regular: 17,
+  xl: 36,
+  large: 18,
+  regular: 16,
   medium: 14,
   small: 12,
   tiny: 8.5
 };
 
 const style = {
-  h1: {
+  title: {
+    fontFamily: type.bold,
+    fontSize: size.large
+  },
+  label: {
     fontFamily: type.base,
-    fontSize: size.h1
+    fontSize: size.medium,
   },
-  h2: {
-    fontWeight: 'bold',
-    fontSize: size.h2
+  input: {
+    fontFamily: type.bold,
+    fontSize: size.regular,
   },
-  h3: {
-    fontFamily: type.emphasis,
-    fontSize: size.h3
-  },
-  h4: {
+  copy: {
     fontFamily: type.base,
-    fontSize: size.h4
+    fontSize: size.small
   },
-  h5: {
-    fontFamily: type.base,
-    fontSize: size.h5
+  number: {
+    fontFamily: type.bold,
+    fontSize: size.xl
   },
-  h6: {
-    fontFamily: type.emphasis,
-    fontSize: size.h6
-  },
-  normal: {
-    fontFamily: type.base,
-    fontSize: size.regular
-  },
-  description: {
-    fontFamily: type.base,
+  button: {
+    fontFamily: type.bold,
     fontSize: size.medium
-  }
+  },
 };
 
 export default {

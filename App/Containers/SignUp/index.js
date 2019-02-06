@@ -1,18 +1,25 @@
 import React from 'react';
 import {
-  ScrollView,
-  Text,
-  View
+  SafeAreaView,
+  View,
+  Image,
 } from 'react-native';
+import { ApplicationStyles, Images } from '../../Themes';
+import { TextCustom } from '../../Components';
+
+
+import styles from './styles';
+
 
 export default function SignUpScreen() {
   return (
-    <View>
-      <ScrollView>
-        <Text>
-          Home Screen
-        </Text>
-      </ScrollView>
-    </View>
+    <SafeAreaView style={ApplicationStyles.screen.mainContainer}>
+      <View style={styles.container}>
+        <View>
+          <Image source={Images.logo} />
+          <TextCustom>This is a demo tag line text</TextCustom>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
