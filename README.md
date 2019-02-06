@@ -26,3 +26,6 @@
 
 [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
+#### Components library
+[React Native Elements](https://react-native-training.github.io/react-native-elements/docs/overview.html)
+
