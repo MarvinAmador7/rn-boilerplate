@@ -10,9 +10,6 @@ import { ApplicationStyles, Images } from '../../Themes';
 import { setFieldAction } from '../../Redux/Reducers/Auth';
 import {
   TextCustom,
-  DividerCustom,
-  ButtonFacebook,
-  ButtonGoogle,
   TextLink,
   TextInput,
   PrimaryButton,
@@ -20,7 +17,7 @@ import {
 
 import styles from './styles';
 
-function SignInScreen(props) {
+function SignUpEmailScreen(props) {
   function setEmailAction(email) {
     const { dispatch } = props;
     dispatch(setFieldAction('email', email));
@@ -50,13 +47,10 @@ function SignInScreen(props) {
             value={phone}
             containerStyles={{ marginBottom: 35 }}
           />
-          <PrimaryButton title="LOG IN" />
-          <DividerCustom>Or</DividerCustom>
-          <ButtonFacebook signIn />
-          <ButtonGoogle signIn />
+          <PrimaryButton title="SIGN UP" />
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Do not have an account yet?</Text>
-            <TextLink label="Sign Up" clickHandler={() => { props.navigation.navigate('SignUpScreen'); }} />
+            <Text style={styles.footerText}>Already have an account?</Text>
+            <TextLink label="Log In" clickHandler={() => { props.navigation.navigate('SignInScreen'); }} />
           </View>
         </View>
       </View>
@@ -71,4 +65,4 @@ function mapStateToProps({ auth }) {
   };
 }
 
-export default connect(mapStateToProps)(SignInScreen);
+export default connect(mapStateToProps)(SignUpEmailScreen);

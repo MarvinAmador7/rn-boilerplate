@@ -1,24 +1,47 @@
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from 'react-navigation';
 import LaunchScreen from '../Containers/LaunchScreen';
 import HomeScreen from '../Containers/Home';
 import SignUpScreen from '../Containers/SignUp';
+import SignUpEmailScreen from '../Containers/SignUpEmail';
 import SignInScreen from '../Containers/SignIn';
+import AuthLoadingScreen from '../Containers/AuthLoading';
 
 import styles from './Styles/NavigationStyles';
 
-// Manifest of possible screens
-const PrimaryNav = createBottomTabNavigator({
-  LaunchScreen: { screen: LaunchScreen },
+const AuthStack = createStackNavigator({
   SignUpScreen: { screen: SignUpScreen },
+  SignUpEmailScreen: { screen: SignUpEmailScreen },
   SignInScreen: { screen: SignInScreen },
+});
+
+const LoadingStack = createStackNavigator({
+  Loading: { screen: AuthLoadingScreen },
+});
+
+const AppStack = createBottomTabNavigator({
+  LaunchScreen: { screen: LaunchScreen },
   HomeScreen: { screen: HomeScreen },
 }, {
-  // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'SignUpScreen',
+  initialRouteName: 'LaunchScreen',
   navigationOptions: {
     headerStyle: styles.header
   }
 });
 
-export default createAppContainer(PrimaryNav);
+export default createAppContainer(createSwitchNavigator(
+  {
+    AuthLoading: LoadingStack,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+));
+
