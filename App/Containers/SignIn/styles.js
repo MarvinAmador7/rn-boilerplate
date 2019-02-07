@@ -14,6 +14,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '80%',
   },
   footer: {
     display: 'flex',

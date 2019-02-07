@@ -36,7 +36,7 @@ const style = {
   },
   button: {
     fontFamily: type.bold,
-    fontSize: size.medium
+    fontSize: size.regular
   },
 };
 
