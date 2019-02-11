@@ -14,6 +14,7 @@
   "dependencies": {
     "@aws-amplify/core": "^1.0.22",
     "aws-amplify": "^1.1.19",
+    "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0",
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",

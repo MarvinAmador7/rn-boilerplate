@@ -9,6 +9,7 @@ import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
 import { Images } from '../../Themes';
 
+import { resetAuth } from '../../Redux/Reducers/Auth';
 // Styles
 import styles from './styles';
 
@@ -19,10 +20,13 @@ class AuthLoading extends React.Component {
 
   bootstrapAsync = async () => {
     const { dispatch } = this.props;
+    dispatch(resetAuth());
     try {
-      await Auth.currentSession();
+      const user = await Auth.currentSession();
+      console.log('currentSession', user);
       dispatch({ type: 'Navigation/NAVIGATE', routeName: 'App' });
     } catch (error) {
+      console.log(error);
       dispatch({ type: 'Navigation/NAVIGATE', routeName: 'Auth' });
     }
   };

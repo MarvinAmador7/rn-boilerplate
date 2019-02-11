@@ -4,7 +4,7 @@ import styles from './styles';
 
 function PrimaryButton({
   title,
-  ...allprops
+  onPress,
 }) {
   return (
     <Button
@@ -12,7 +12,7 @@ function PrimaryButton({
       buttonStyle={styles.baseButton}
       titleStyle={styles.baseTitle}
       title={title}
-      {...allprops}
+      onPress={onPress}
     />
   );
 }

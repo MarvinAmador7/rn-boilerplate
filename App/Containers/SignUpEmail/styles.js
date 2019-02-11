@@ -21,6 +21,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 35,
   },
   footerText: {
     ...Fonts.style.label,
