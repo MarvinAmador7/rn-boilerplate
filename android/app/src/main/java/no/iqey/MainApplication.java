@@ -3,6 +3,7 @@ package no.iqey;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.amazonaws.RNAWSCognitoPackage;
 import com.proyecto26.inappbrowser.RNInAppBrowserPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNAWSCognitoPackage(),
             new RNInAppBrowserPackage(),
             new VectorIconsPackage(),
             new SvgPackage(),

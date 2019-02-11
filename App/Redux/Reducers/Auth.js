@@ -17,6 +17,8 @@ export const {
   'RESET_AUTH',
 );
 
+let globalUser;
+
 export function setFieldAction(field, value) {
   return (dispatch) => {
     dispatch(setField({ field, value }));
@@ -57,7 +59,7 @@ export function confirmCodeIntent() {
     const { confirmationCode, user } = getState().auth;
     try {
       if (confirmationCode) {
-        const userObject = await Auth.sendCustomChallengeAnswer(Immutable.asMutable(user), confirmationCode);
+        const userObject = await Auth.sendCustomChallengeAnswer(globalUser, confirmationCode);
 
         await Auth.currentSession();
         dispatch(setUser(userObject));
@@ -76,6 +78,8 @@ export function signIn() {
     try {
       if (email) {
         const user = await Auth.signIn(email);
+
+        globalUser = user;
 
         AsyncStorage.getAllKeys().then(response => { console.log(response) });
 
