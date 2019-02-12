@@ -1,9 +1,11 @@
 import React from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   View,
   Image,
   Text,
+  Platform,
   KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -42,39 +44,42 @@ class SignUpEmailScreen extends React.Component {
     const { email, navigation } = this.props;
     return (
       <SafeAreaView style={ApplicationStyles.screen.mainContainer}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior="padding"
-        >
-          <View>
-            <Image source={Images.logo} />
-            <TextCustom>This is a demo tag line text</TextCustom>
-          </View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-          <View style={styles.buttons}>
-            <TextInput
-              clearButtonMode="while-editing"
-              autoFocus
-              label="Email"
-              keyboard="email-address"
-              textChangeHandler={this.setEmailAction}
-              value={email}
-              containerStyles={{ marginBottom: 35 }}
-            />
-            {/* <TextInput
-              label="Phone number"
-              keyboard="number-pad"
-              textChangeHandler={this.setPhoneAction}
-              value={phone}
-              containerStyles={{ marginBottom: 35 }}
-            /> */}
-            <PrimaryButton title="SIGN UP" onPress={this.signUpAction} />
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>Already have an account?</Text>
-              <TextLink label="Log In" clickHandler={() => { navigation.navigate('SignInScreen'); }} />
+          <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          >
+            <View>
+              <Image source={Images.logo} />
+              <TextCustom>This is a demo tag line text</TextCustom>
             </View>
-          </View>
-        </KeyboardAvoidingView>
+
+            <View style={styles.buttons}>
+              <TextInput
+                clearButtonMode="while-editing"
+                autoFocus
+                label="Email"
+                keyboard="email-address"
+                textChangeHandler={this.setEmailAction}
+                value={email}
+                containerStyles={{ marginBottom: 35 }}
+              />
+              {/* <TextInput
+                label="Phone number"
+                keyboard="number-pad"
+                textChangeHandler={this.setPhoneAction}
+                value={phone}
+                containerStyles={{ marginBottom: 35 }}
+              /> */}
+              <PrimaryButton title="SIGN UP" onPress={this.signUpAction} />
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>Already have an account?</Text>
+                <TextLink label="Log In" clickHandler={() => { navigation.navigate('SignInScreen'); }} />
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </SafeAreaView>
     );
   }

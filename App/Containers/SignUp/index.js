@@ -37,20 +37,28 @@ class SignUpScreen extends React.Component {
     Linking.addEventListener('url', this.eventHandler);
   }
 
-  pressHandler = (provider) => {
-    if (Platform.OS === 'ios') {
-      SafariView.show({
-        url: provider === 'Facebook' ? facebookLoginURL : googleLoginURL
-      });
-    } else {
-      InAppBrowser.open(provider === 'Facebook' ? facebookLoginURL : googleLoginURL, {
-        showTitle: true,
-        toolbarColor: '#6200EE',
-        secondaryToolbarColor: 'black',
-        enableUrlBarHiding: true,
-        enableDefaultShare: true,
-        forceCloseOnRedirection: false,
-      });
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.eventHandler);
+  }
+
+  pressHandler = async (provider) => {
+    const url = provider === 'Facebook' ? facebookLoginURL : googleLoginURL;
+    try {
+      if (Platform.OS === 'ios') {
+        SafariView.show({ url });
+      } else {
+        await InAppBrowser.isAvailable();
+        InAppBrowser.open(url, {
+          showTitle: true,
+          toolbarColor: '#6200EE',
+          secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+        });
+      }
+    } catch (error) {
+      Linking.openURL(url);
     }
   }
 
@@ -104,6 +112,12 @@ class SignUpScreen extends React.Component {
         storage.setItem(`CognitoIdentityServiceProvider.t9c0da1aqfr5eqao4h3johb2r.${idTokenData['cognito:username']}.refreshToken`, creds['refresh_token'])
         storage.setItem(`CognitoIdentityServiceProvider.t9c0da1aqfr5eqao4h3johb2r.${idTokenData['cognito:username']}.clockDrift`, '' + this.calculateClockDrift(accessTokenData['iat'], idTokenData['iat']) + '');
 
+        if (Platform.OS === 'ios') {
+          SafariView.dismiss();
+        } else {
+          InAppBrowser.close();
+        }
+
         navigation.navigate('App');
       })
       .catch((error) => {
@@ -114,6 +128,7 @@ class SignUpScreen extends React.Component {
   eventHandler = (event) => {
     const code = (/code=([^&]+)/.test(event.url) && event.url.match(/code=([^&]+)/)[1])
     || null;
+    console.log('no code', code);
     if (!code) return;
 
     if (Platform.OS === 'ios') {
@@ -122,11 +137,13 @@ class SignUpScreen extends React.Component {
       InAppBrowser.close();
     }
 
+
     if (
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
         code
       )
     ) {
+      console.log('decode token', code);
       this.getTokenbyCode(code);
     }
   };

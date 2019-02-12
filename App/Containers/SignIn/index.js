@@ -7,6 +7,8 @@ import {
   Linking,
   Platform,
   Keyboard,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -155,40 +157,45 @@ class SignInScreen extends React.Component {
     } = this.props;
     return (
       <SafeAreaView style={ApplicationStyles.screen.mainContainer}>
-        <View style={styles.container}>
-          <View>
-            <Image source={Images.logo} />
-            <TextCustom>This is a demo tag line text</TextCustom>
-          </View>
-
-          <View style={styles.buttons}>
-            <TextInput label="Email" keyboard="email-address" textChangeHandler={this.setEmailAction} value={email} />
-            <TextInput
-              label="Phone number"
-              keyboard="number-pad"
-              textChangeHandler={this.setPhoneAction}
-              value={phone}
-              containerStyles={{ marginBottom: 35 }}
-            />
-            { pendingConfirm && (
-              <TextInput
-                label="Confirmation Code"
-                keyboard="number-pad"
-                textChangeHandler={this.setConfirmationCodeAction}
-                value={confirmationCode}
-                containerStyles={{ marginBottom: 35 }}
-              />
-            )}
-            <PrimaryButton title={`${pendingConfirm ? 'CONFIRM CODE' : 'LOG IN'}`} onPress={pendingConfirm ? this.confirmationAction : this.signInAction} />
-            <DividerCustom>Or</DividerCustom>
-            <ButtonFacebook signIn onPress={() => { this.pressHandler('Facebook'); }} />
-            <ButtonGoogle signIn onPress={() => { this.pressHandler('Google'); }} />
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>Do not have an account yet?</Text>
-              <TextLink label="Sign Up" clickHandler={() => { navigation.navigate('SignUpScreen'); }} />
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          >
+            <View>
+              <Image source={Images.logo} />
+              <TextCustom>This is a demo tag line text</TextCustom>
             </View>
-          </View>
-        </View>
+
+            <View style={styles.buttons}>
+              <TextInput label="Email" keyboard="email-address" textChangeHandler={this.setEmailAction} value={email} />
+              {/* <TextInput
+                label="Phone number"
+                keyboard="number-pad"
+                textChangeHandler={this.setPhoneAction}
+                value={phone}
+                containerStyles={{ marginBottom: 35 }}
+              /> */}
+              { pendingConfirm && (
+                <TextInput
+                  label="Confirmation Code"
+                  keyboard="number-pad"
+                  textChangeHandler={this.setConfirmationCodeAction}
+                  value={confirmationCode}
+                  containerStyles={{ marginBottom: 35 }}
+                />
+              )}
+              <PrimaryButton title={`${pendingConfirm ? 'CONFIRM CODE' : 'LOG IN'}`} onPress={pendingConfirm ? this.confirmationAction : this.signInAction} />
+              <DividerCustom>Or</DividerCustom>
+              <ButtonFacebook signIn onPress={() => { this.pressHandler('Facebook'); }} />
+              <ButtonGoogle signIn onPress={() => { this.pressHandler('Google'); }} />
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>Do not have an account yet?</Text>
+                <TextLink label="Sign Up" clickHandler={() => { navigation.navigate('SignUpScreen'); }} />
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </SafeAreaView>
     );
   }

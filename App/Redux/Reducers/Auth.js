@@ -25,6 +25,19 @@ export function setFieldAction(field, value) {
   };
 }
 
+export function logout() {
+  return async (dispatch) => {
+    try {
+      dispatch(resetAuth());
+      await Auth.signOut();
+      await AsyncStorage.clear();
+      dispatch({ type: 'Navigation/NAVIGATE', routeName: 'SignInScreen' });
+    } catch (error) {
+      console.log('cant logout', error);
+    }
+  };
+}
+
 export function signUp() {
   return async (dispatch, getState) => {
     const { email } = getState().auth;
@@ -43,10 +56,10 @@ export function signUp() {
           },
         };
 
-        API.graphql({ query: createUser, variables });
+        await API.graphql({ query: createUser, variables });
 
         dispatch(setUser(user));
-        dispatch({ type: 'Navigation/NAVIGATE', routeName: 'App' });
+        dispatch({ type: 'Navigation/NAVIGATE', routeName: 'SignInScreen' });
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +69,7 @@ export function signUp() {
 
 export function confirmCodeIntent() {
   return async (dispatch, getState) => {
-    const { confirmationCode, user } = getState().auth;
+    const { confirmationCode } = getState().auth;
     try {
       if (confirmationCode) {
         const userObject = await Auth.sendCustomChallengeAnswer(globalUser, confirmationCode);
@@ -81,9 +94,6 @@ export function signIn() {
 
         globalUser = user;
 
-        AsyncStorage.getAllKeys().then(response => { console.log(response) });
-
-        console.log('Cognito user', user);
         dispatch(setUser(user));
         dispatch(setPendingConfirm());
       }
