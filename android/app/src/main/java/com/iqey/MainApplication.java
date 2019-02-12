@@ -1,4 +1,4 @@
-package no.iqey;
+package com.iqey;
 
 import android.app.Application;
 

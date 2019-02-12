@@ -1,4 +1,4 @@
-package no.iqey;
+package com.iqey;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

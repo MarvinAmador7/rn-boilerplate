@@ -47,15 +47,15 @@ class SignUpScreen extends React.Component {
       if (Platform.OS === 'ios') {
         SafariView.show({ url });
       } else {
-        await InAppBrowser.isAvailable();
-        InAppBrowser.open(url, {
-          showTitle: true,
-          toolbarColor: '#6200EE',
-          secondaryToolbarColor: 'black',
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
+        Linking.canOpenURL(url)
+          .then((supported) => {
+            if (!supported) {
+              console.log("Can't handle url: " + url);
+            } else {
+              return Linking.openURL(url);
+            }
+          })
+          .catch((err) => console.error('An error occurred', err));
       }
     } catch (error) {
       Linking.openURL(url);
@@ -82,6 +82,15 @@ class SignUpScreen extends React.Component {
       code,
       client_id: 't9c0da1aqfr5eqao4h3johb2r',
       redirect_uri: 'runningman://'
+      // <-- Alex I think the problem is here  android doesn't understand
+      // how to handle this redirect uri  or works very different than ios
+      // When you try to run the facebook login for the first time it works
+      // you can see the facebook sign in screen but then the browser doesn't
+      // how to come back to the app so it gets spining forever
+      // https://facebook.github.io/react-native/docs/linking
+      // https://github.com/proyecto26/react-native-inappbrowser#authentication-flow-using-deep-linking
+      // https://stackoverflow.com/questions/39987847/android-scheme-url-link-redirect-to-app
+      // https://android.jlelse.eu/deep-linking-in-androd-9c853573fdf4
     };
 
     const formBody = Object.keys(details)
