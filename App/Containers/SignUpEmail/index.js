@@ -19,6 +19,10 @@ import {
 import styles from './styles';
 
 class SignUpEmailScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Sign Up Detials'
+  };
+
   setEmailAction = (email) => {
     const { dispatch } = this.props;
     dispatch(setFieldAction('email', email));

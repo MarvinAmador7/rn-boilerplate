@@ -29,6 +29,10 @@ import styles from './styles';
 const facebookLoginURL = `https://iqey.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=t9c0da1aqfr5eqao4h3johb2r&redirect_uri=runningman://&identity_provider=Facebook`;
 const googleLoginURL = `https://iqey.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=t9c0da1aqfr5eqao4h3johb2r&redirect_uri=runningman://&identity_provider=Google`;
 class SignInScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Sign In'
+  };
+
   componentDidMount() {
     Linking.addEventListener('url', this.eventHandler);
   }

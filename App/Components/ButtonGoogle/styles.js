@@ -24,7 +24,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    ...Fonts.size.medium,
+    fontSize: Fonts.size.medium,
     marginLeft: 11,
     color: Colors.white,
   },

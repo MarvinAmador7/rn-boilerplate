@@ -29,6 +29,10 @@ const facebookLoginURL = `https://iqey.auth.us-east-1.amazoncognito.com/oauth2/a
 const googleLoginURL = `https://iqey.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=t9c0da1aqfr5eqao4h3johb2r&redirect_uri=runningman://&identity_provider=Google`;
 
 class SignUpScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Sign Up'
+  };
+
   componentDidMount() {
     Linking.addEventListener('url', this.eventHandler);
   }
@@ -112,8 +116,11 @@ class SignUpScreen extends React.Component {
     || null;
     if (!code) return;
 
-    Platform.OS === 'ios' && SafariView.dismiss();
-    Platform.OS !== 'ios' && InAppBrowser.close();
+    if (Platform.OS === 'ios') {
+      SafariView.dismiss();
+    } else {
+      InAppBrowser.close();
+    }
 
     if (
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
