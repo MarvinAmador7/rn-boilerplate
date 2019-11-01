@@ -34,6 +34,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
+    "rn-viewpager": "^1.2.9",
     "seamless-immutable": "^7.1.4"
   },
   "devDependencies": {

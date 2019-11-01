@@ -6,3 +6,5 @@ export { default as ButtonGoogle } from './ButtonGoogle';
 export { default as TextLink } from './TextLink';
 export { default as TextInput } from './TextInput';
 export { default as PrimaryButton } from './PrimaryButton';
+export { default as Slider } from './Slider';
+export { default as Overlay } from './Overlay';
